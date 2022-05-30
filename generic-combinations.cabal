@@ -50,18 +50,18 @@ extra-source-files: CHANGELOG.md
 
 library
     -- Modules exported by the library.
-    exposed-modules:  MyLib
+    exposed-modules:  Control.Applicative.Combinations
 
     -- Modules included in this library but not exported.
     -- other-modules:
 
-    default-extensions: MultiParamTypeClasses DeriveGeneric FlexibleInstances
+    default-extensions: MultiParamTypeClasses DeriveGeneric FlexibleInstances TypeOperators DefaultSignatures FlexibleContexts StandaloneDeriving
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.15.1.0
+    build-depends:    base ^>=4.15.1.0, containers
 
     -- Directories containing source files.
     hs-source-dirs:   lib
