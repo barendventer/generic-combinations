@@ -55,7 +55,7 @@ library
     -- Modules included in this library but not exported.
     -- other-modules:
 
-    default-extensions: MultiParamTypeClasses DeriveGeneric FlexibleInstances TypeOperators DefaultSignatures FlexibleContexts StandaloneDeriving
+    default-extensions: MultiParamTypeClasses DeriveGeneric FlexibleInstances TypeOperators DefaultSignatures FlexibleContexts StandaloneDeriving DeriveAnyClass
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

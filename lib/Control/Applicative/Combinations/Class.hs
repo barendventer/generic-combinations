@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Control.Applicative.Combinations.Class where
 
 import Data.Functor.Identity (Identity)
