@@ -5,7 +5,6 @@ import Data.Map (Map)
 import Data.Set (Set)
 import Data.Void (Void)
 import GHC.Generics
-    ( Generic(..), V1, U1, K1(..), M1(..), type (:+:), type (:*:)(..) )
 
 class (Applicative f) => Combinations f a where
   -- | Distributes the idiom over the fields of `a` and applies the constructor for `a` to the resulting idioms
