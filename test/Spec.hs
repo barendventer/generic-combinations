@@ -47,10 +47,10 @@ hasAtLeastOneFavoriteFood (Pet {stats = PetStats {favoriteFoods}}) = not $ null 
 
 --The number of expected combinations
 petListLength, petStatsRecordSize, petRecordSize, nPetCombinations :: Int
-petListLength = length petList
+petListLength = length petList --3
 petStatsRecordSize = 3 --age, favorite foods, and species
 petRecordSize = petStatsRecordSize + 2 --name, velocity
-nPetCombinations = petListLength ^ petRecordSize
+nPetCombinations = petListLength ^ petRecordSize --3^5 == 243
 
 main :: IO ()
 main = hspec $ do
