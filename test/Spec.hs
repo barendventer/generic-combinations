@@ -1,9 +1,9 @@
-{-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module Main (main) where
 
@@ -13,14 +13,17 @@ import Test.Hspec
 
 -- | The different options for pet species
 data PetSpecies = Rabbit | Parrot | Ferret | Guppy deriving (Eq, Ord, Show, Read, Enum, Generic)
+
 deriving instance (Applicative f) => Combinations f PetSpecies
 
 -- | The statistics a pet can have. Provided to test that combinations can traverse deep structures.
-data PetStats = PetStats { age :: Int, favoriteFoods :: [String], species :: PetSpecies } deriving (Eq, Ord, Show, Read, Generic)
+data PetStats = PetStats {age :: Int, favoriteFoods :: [String], species :: PetSpecies} deriving (Eq, Ord, Show, Read, Generic)
+
 deriving instance (Applicative f) => Combinations f PetStats
 
 -- | A pet with name, age, favorite foods, and species
-data Pet = Pet { name :: String, stats :: PetStats, velocity :: Atom (Double,Double) } deriving (Eq, Show, Read, Ord, Generic)
+data Pet = Pet {name :: String, stats :: PetStats, velocity :: Atom (Double, Double)} deriving (Eq, Show, Read, Ord, Generic)
+
 deriving instance (Applicative f) => Combinations f Pet
 
 -- | A list of pets with specific properties.
@@ -28,20 +31,20 @@ deriving instance (Applicative f) => Combinations f Pet
 -- Property: all the pets have a zero in their velocity tuple
 -- Property: none of the pets have the same number of favorite foods
 petList, petListCombinations :: [Pet]
-petList = [
-  Pet { name = "Trixie", stats = PetStats {age = 2, favoriteFoods = ["carrot", "lettuce", "carpet"], species = Rabbit}, velocity = Atom (0,0)}
-  , Pet { name = "Carpet", stats = PetStats {age = 3, favoriteFoods = ["mealworm", "buffalo wings"], species = Ferret}, velocity = Atom (1,0)}
-  , Pet { name = "Papaya", stats = PetStats {age = 12, favoriteFoods = ["betel nut"], species = Parrot}, velocity = Atom (0,2) }
+petList =
+  [ Pet {name = "Trixie", stats = PetStats {age = 2, favoriteFoods = ["carrot", "lettuce", "carpet"], species = Rabbit}, velocity = Atom (0, 0)},
+    Pet {name = "Carpet", stats = PetStats {age = 3, favoriteFoods = ["mealworm", "buffalo wings"], species = Ferret}, velocity = Atom (1, 0)},
+    Pet {name = "Papaya", stats = PetStats {age = 12, favoriteFoods = ["betel nut"], species = Parrot}, velocity = Atom (0, 2)}
   ]
 petListCombinations = combinations petList
 
 --An example combination of the input pets
 exampleCombinedPet :: Pet
-exampleCombinedPet = Pet { name = "Papaya", stats = PetStats {age = 12, favoriteFoods = ["mealworm", "buffalo wings"], species = Parrot}, velocity = Atom (0,2) }
+exampleCombinedPet = Pet {name = "Papaya", stats = PetStats {age = 12, favoriteFoods = ["mealworm", "buffalo wings"], species = Parrot}, velocity = Atom (0, 2)}
 
 --Predicates on pets
 hasZeroInVector, notAGuppy, hasAtLeastOneFavoriteFood :: Pet -> Bool
-hasZeroInVector (Pet {velocity = Atom (x,y)}) = x == 0 || y == 0
+hasZeroInVector (Pet {velocity = Atom (x, y)}) = x == 0 || y == 0
 notAGuppy (Pet {stats = PetStats {species}}) = species /= Guppy
 hasAtLeastOneFavoriteFood (Pet {stats = PetStats {favoriteFoods}}) = not $ null favoriteFoods
 
@@ -54,7 +57,7 @@ nPetCombinations = petListLength ^ petRecordSize --3^5 == 243
 
 --Tuples with nesting to test tuple instances
 tupleList, tupleListCombinations :: [((Double, Double), (Double, Double, (Double, Double)), Double, Double)]
-tupleList = [((0, 0), (0, 0, (0, 0)), 0, 0),((1, 1), (1, 1, (1, 1)), 1, 1)]
+tupleList = [((0, 0), (0, 0, (0, 0)), 0, 0), ((1, 1), (1, 1, (1, 1)), 1, 1)]
 tupleListCombinations = combinations tupleList
 
 main :: IO ()
