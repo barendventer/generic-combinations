@@ -36,6 +36,7 @@ petList = [
 petListCombinations = combinations petList
 
 --An example combination of the input pets
+exampleCombinedPet :: Pet
 exampleCombinedPet = Pet { name = "Papaya", stats = PetStats {age = 12, favoriteFoods = ["mealworm", "buffalo wings"], species = Parrot}, velocity = Atom (0,2) }
 
 --Predicates on pets
