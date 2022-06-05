@@ -15,7 +15,7 @@ import Test.Hspec
 data PetSpecies = Rabbit | Parrot | Ferret | Guppy deriving (Eq, Ord, Show, Read, Enum, Generic)
 deriving instance (Applicative f) => Combinations f PetSpecies
 
--- | The statistics a pet can have.
+-- | The statistics a pet can have. Provided to test that combinations can traverse deep structures.
 data PetStats = PetStats { age :: Int, favoriteFoods :: [String], species :: PetSpecies } deriving (Eq, Ord, Show, Read, Generic)
 deriving instance (Applicative f) => Combinations f PetStats
 
@@ -52,6 +52,11 @@ petStatsRecordSize = 3 --age, favorite foods, and species
 petRecordSize = petStatsRecordSize + 2 --name, velocity
 nPetCombinations = petListLength ^ petRecordSize --3^5 == 243
 
+--Tuples with nesting to test tuple instances
+tupleList, tupleListCombinations :: [((Double, Double), (Double, Double, (Double, Double)), Double, Double)]
+tupleList = [((0, 0), (0, 0, (0, 0)), 0, 0),((1, 1), (1, 1, (1, 1)), 1, 1)]
+tupleListCombinations = combinations tupleList
+
 main :: IO ()
 main = hspec $ do
   describe "petListCombinations" $ do
@@ -65,4 +70,8 @@ main = hspec $ do
       petListCombinations `shouldSatisfy` all hasAtLeastOneFavoriteFood
     it "contains a known combination that wasn't included in the original inputs" $ do
       petListCombinations `shouldSatisfy` elem exampleCombinedPet
-
+  describe "tupleListCombinations" $ do
+    it "is the combinations of 8 bits, and thus has 256 elements" $ do
+      length tupleListCombinations `shouldBe` 256
+    it "contains the combination ((0, 1), (1, 1, (0, 1)), 0, 1)" $ do
+      tupleListCombinations `shouldSatisfy` elem ((0, 1), (1, 1, (0, 1)), 0, 1)
