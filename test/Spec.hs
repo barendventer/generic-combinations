@@ -60,6 +60,7 @@ tupleList, tupleListCombinations :: [((Double, Double), (Double, Double, (Double
 tupleList = [((0, 0), (0, 0, (0, 0)), 0, 0), ((1, 1), (1, 1, (1, 1)), 1, 1)]
 tupleListCombinations = combinations tupleList
 
+
 main :: IO ()
 main = hspec $ do
   describe "petListCombinations" $ do
@@ -78,3 +79,38 @@ main = hspec $ do
       length tupleListCombinations `shouldBe` 256
     it "contains the combination ((0, 1), (1, 1, (0, 1)), 0, 1)" $ do
       tupleListCombinations `shouldSatisfy` elem ((0, 1), (1, 1, (0, 1)), 0, 1)
+
+-- Ensure that the example in README.md builds
+
+data BirdFacts = 
+  BirdFacts { 
+    flightless :: Bool
+    , predator :: Bool
+    , size :: BirdSize 
+  } 
+  deriving (Generic, Show, Eq)
+
+deriving instance (Applicative f) => Combinations f BirdFacts
+
+data BirdSize = Tiny | Small | Large | Huge 
+  deriving (Generic, Show, Eq, Enum)
+
+deriving instance (Applicative f) => Combinations f BirdSize
+
+duckFacts, gooseFacts :: BirdFacts 
+duckFacts = BirdFacts { flightless = False, predator = True, size = Small }
+gooseFacts = BirdFacts { flightless = False, predator = False, size = Large }
+
+--Using combinations with the list functor, we get all combinations of
+--the given bird facts, 2^3 as there are two sets of bird facts
+combinedFacts = combinations [duckFacts, gooseFacts]
+
+-- combinedFacts ==
+--  [BirdFacts {flightless = False, predator = True, size = Small}
+--  ,BirdFacts {flightless = False, predator = True, size = Large}
+--  ,BirdFacts {flightless = False, predator = False, size = Small}
+--  ,BirdFacts {flightless = False, predator = False, size = Large}
+--  ,BirdFacts {flightless = False, predator = True, size = Small}
+--  ,BirdFacts {flightless = False, predator = True, size = Large}
+--  ,BirdFacts {flightless = False, predator = False, size = Small}
+--  ,BirdFacts {flightless = False, predator = False, size = Large}]
