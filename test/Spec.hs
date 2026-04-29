@@ -82,22 +82,22 @@ main = hspec $ do
 
 -- Ensure that the example in README.md builds
 
-data BirdFacts = 
-  BirdFacts { 
+data BirdFacts =
+  BirdFacts {
     flightless :: Bool
     , predator :: Bool
-    , size :: BirdSize 
-  } 
+    , size :: BirdSize
+  }
   deriving (Generic, Show, Eq)
 
 deriving instance (Applicative f) => Combinations f BirdFacts
 
-data BirdSize = Tiny | Small | Large | Huge 
+data BirdSize = Tiny | Small | Large | Huge
   deriving (Generic, Show, Eq, Enum)
 
 deriving instance (Applicative f) => Combinations f BirdSize
 
-duckFacts, gooseFacts :: BirdFacts 
+duckFacts, gooseFacts :: BirdFacts
 duckFacts = BirdFacts { flightless = False, predator = True, size = Small }
 gooseFacts = BirdFacts { flightless = False, predator = False, size = Large }
 

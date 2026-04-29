@@ -21,13 +21,13 @@ synopsis:
     Recombine fields of a data type in applicative functor contexts
 
 -- A longer description of the package.
--- description:
+description:         This class allows for data structures to be "re-zipped" by an applicative functor. You can define your own instances, or you can use `StandaloneDeriving` and `DeriveAnyClass` to create them. `combinations` will try to work deeply over nested records and tuples to combine their children when possible, but it doesn't attempt to combine the content of variable length structures like lists and maps.
 
 -- URL for the project homepage or repository.
-homepage:
+homepage:            https://github.com/barendventer/generic-combinations
 
 -- A URL where users can report bugs.
--- bug-reports:
+bug-reports:         https://github.com/barendventer/generic-combinations/issues
 
 -- The license under which the package is released.
 license:            MIT
@@ -46,7 +46,7 @@ maintainer:         barendventer@gmail.com
 category:           Control
 
 -- Extra files to be distributed with the package, such as examples or a README.
-extra-source-files: CHANGELOG.md
+extra-source-files: CHANGELOG.md, README.md
 
 library
     -- Modules exported by the library.
