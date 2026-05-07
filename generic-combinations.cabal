@@ -61,7 +61,7 @@ library
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.15.1.0, containers
+    build-depends:    base ^>=4.20.0.0, containers
 
     -- Directories containing source files.
     hs-source-dirs:   lib
@@ -83,4 +83,4 @@ test-suite generic-combinations-test
     main-is:          Spec.hs
 
     -- Test dependencies.
-    build-depends:    base ^>=4.15.1.0, generic-lens, lens, hspec, generic-combinations
+    build-depends:    base ^>=4.20.0.0, generic-lens, lens, hspec, generic-combinations
